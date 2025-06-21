@@ -1,351 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="#">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <title>Agressive Compounding Calculator</title>
+        <style>
+            * {
+                font-family: Roboto, sans-serif;
+                margin: 0;
+                box-sizing: border-box;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="#">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>Agressive Coumpounding Calculator</title>
-</head>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: #0f0f1a;
+                color: white;
+                padding: 50px;
+            }
 
-<style>
-    * {
-        font-family: Roboto;
-        margin: 0;
-    }
+            h1 {
+                font-size: 32px;
+                font-weight: bold;
+                margin-bottom: 30px;
+            }
 
-    body {
-        padding: 50px;
-    }
+            .input-row {
+                display: flex;
+                justify-content: space-between;
+                gap: 15px;
+                margin-bottom: 50px;
+                max-width: 1000px;
+            }
 
-    input,
-    select {
-        width: 145px;
-        height: 25px;
-        text-align: center;
-    }
+            .input-item {
+                padding: 20px;
+                border-radius: 16px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: white;
+                min-width: 160px;
+            }
 
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-    }
+            .input-item input,
+            .input-item select {
+                margin-top: 10px;
+                font-size: 16px;
+                text-align: center;
+                border: none;
+                border-radius: 8px;
+                padding: 5px;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+            }
 
-    .input-row {
-        width: 750px;
-        display: flex;
-        justify-content: space-between;
-        margin: 50px 0;
-    }
+            .input-item:nth-child(1) {
+                background-color: #6a4aff;
+            }
 
-    .input-item {
-        width: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+            .input-item:nth-child(2) {
+                background-color: #2980ff;
+            }
 
-    .table-row {
-        display: flex;
-        flex-direction: column;
-    }
+            .input-item:nth-child(3) {
+                background-color: #e74c3c;
+            }
 
-    .table-row .row {
-        display: flex;
-    }
+            .input-item:nth-child(4) {
+                background-color: #f39c12;
+            }
 
-    .table-row .row .row-item {
-        width: 100px;
-        height: 75px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgb(238, 238, 238);
-        border: 1px solid gray;
-    }
+            .table-row {
+                display: flex;
+                flex-direction: column;
+            }
 
-    .table-row .row .row-item.total-risk {
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-        font-size: 12px;
-        text-align: center;
-    }
+            .table-row .row {
+                display: flex;
+            }
 
-    .table-row .row .row-item.total-risk #total_risk {
-        font-size: 14px;
-        font-weight: bold;
-    }
+            .table-row .row .row-item {
+                width: 100px;
+                height: 75px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: white;
+            }
 
-    .table-row .row .row-item.table-label {
-        background-color: transparent;
-        border: none;
-        text-align: center;
-    }
-</style>
+            .table-row .row .row-item.total-risk {
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                font-size: 12px;
+                text-align: center;
+                background-color: rgba(255, 255, 255, 0.1);
+            }
 
-<body>
-    <h1>Agressive Compounding Calculator</h1>
+            .table-row .row .row-item.total-risk #total_risk {
+                font-size: 14px;
+                font-weight: bold;
+            }
 
-    <div class="input-row">
-        <div class="input-item">
-            <h3>Capital</h3>
-            <input id="capital" type="number" value="23000">
-        </div>
-        <div class="input-item">
-            <h3>IC Premium</h3>
-            <input id="premium" type="number" value="1.85">
-        </div>
-        <div class="input-item">
-            <h3>IC Fees</h3>
-            <input id="fees" type="number" value="4.88">
-        </div>
-        <div class="input-item">
-            <h3>Starting Level</h3>
-            <select id="start_level" type="number" value="2">
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-    </div>
+            .table-row .row .row-item.table-label {
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-weight: 500;
+            }
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button,
+            select {
+            -webkit-appearance: none;
+            margin: 0;
+            }
 
-    <div class="table-row">
-        <div class="row">
-            <h2 class="row-item table-label">
+            input[type="number"] {
+            -moz-appearance: textfield; /* For Firefox */
+            }
 
-            </h2>
-            <h2 class="row-item table-label">
-                L1
-            </h2>
-            <h2 class="row-item table-label">
-                L2
-            </h2>
-            <h2 class="row-item table-label">
-                L3
-            </h2>
-            <h2 class="row-item table-label">
-                L4
-            </h2>
-            <h2 class="row-item table-label">
-                L5
-            </h2>
-        </div>
-        <div class="row">
-            <h4 class="row-item table-label">
-                Contracts
-            </h4>
-            <div class="row-item contracts">
+        </style>
+    </head>
 
+    <body>
+        <h1>Agressive Compounding Calculator</h1>
+
+        <div class="input-row">
+            <div class="input-item">
+                <h3>Capital</h3>
+                <input id="capital" type="number" value="15000">
             </div>
-            <div class="row-item contracts">
-
+            <div class="input-item">
+                <h3>IC Premium</h3>
+                <input id="premium" type="number" value="1.85">
             </div>
-            <div class="row-item contracts">
-
+            <div class="input-item">
+                <h3>IC Fees</h3>
+                <input id="fees" type="number" value="4.88">
             </div>
-            <div class="row-item contracts">
-
-            </div>
-            <div class="row-item contracts">
-
-            </div>
-        </div>
-        <div class="row">
-            <h4 class="row-item table-label">
-                Level Exit Profit
-            </h4>
-            <div class="row-item profits">
-
-            </div>
-            <div class="row-item profits">
-
-            </div>
-            <div class="row-item profits">
-
-            </div>
-            <div class="row-item profits">
-
-            </div>
-            <div class="row-item profits">
-
+            <div class="input-item">
+                <h3>Starting Level</h3>
+                <select id="start_level">
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
             </div>
         </div>
-        <div class="row">
-            <h4 class="row-item table-label">
-                Level Max Risk
-            </h4>
-            <div class="row-item risks">
 
+        <div class="table-row">
+            <div class="row">
+                <h2 class="row-item table-label"></h2>
+                <h2 class="row-item table-label">L1</h2>
+                <h2 class="row-item table-label">L2</h2>
+                <h2 class="row-item table-label">L3</h2>
+                <h2 class="row-item table-label">L4</h2>
+                <h2 class="row-item table-label">L5</h2>
             </div>
-            <div class="row-item risks">
-
+            <div class="row">
+                <h4 class="row-item table-label">Contracts</h4>
+                <div class="row-item contracts"></div>
+                <div class="row-item contracts"></div>
+                <div class="row-item contracts"></div>
+                <div class="row-item contracts"></div>
+                <div class="row-item contracts"></div>
             </div>
-            <div class="row-item risks">
-
+            <div class="row">
+                <h4 class="row-item table-label">Level Exit Profit</h4>
+                <div class="row-item profits"></div>
+                <div class="row-item profits"></div>
+                <div class="row-item profits"></div>
+                <div class="row-item profits"></div>
+                <div class="row-item profits"></div>
             </div>
-            <div class="row-item risks">
-
-            </div>
-            <div class="row-item risks">
-
-            </div>
-            <div class="row-item total-risk">
-                Cumulative Risk
-                <p id="total_risk"></p>
+            <div class="row">
+                <h4 class="row-item table-label">Level Max Risk</h4>
+                <div class="row-item risks"></div>
+                <div class="row-item risks"></div>
+                <div class="row-item risks"></div>
+                <div class="row-item risks"></div>
+                <div class="row-item risks"></div>
+                <div class="row-item total-risk">
+                    Cumulative Risk
+                    <p id="total_risk"></p>
+                </div>
             </div>
         </div>
-    </div>
 
-</body>
+        <script>
+            // Adding Event listeners to inputs
+            const capital_elm = document.getElementById("capital");
+            capital_elm.addEventListener("change", (e) => {
+                capital = Number(e.target.value);
+                renderTable();
+                console.log({ Capital: capital });
+            });
 
-<script>
-    // Adding Event listeners to inputs
-    const capital_elm = document.getElementById("capital");
-    capital_elm.addEventListener("change", (e) => {
-        capital = Number(e.target.value);
-        renderTable();
-        console.log({ Capital: capital });
-    });
+            const premium_elm = document.getElementById("premium");
+            premium_elm.addEventListener("change", (e) => {
+                premium = Number(e.target.value);
+                renderTable();
+                console.log({ Premium: premium });
+            });
+            const fees_elm = document.getElementById("fees");
+            fees_elm.addEventListener("change", (e) => {
+                fees = Number(e.target.value);
+                renderTable();
+                console.log({ Fees: fees });
+            });
+            const start_level_elm = document.getElementById("start_level");
+            start_level_elm.addEventListener("change", (e) => {
+                start_level = Number(e.target.value);
+                renderTable();
+                console.log({ Start_Level: start_level });
+            });
 
-    const premium_elm = document.getElementById("premium");
-    premium_elm.addEventListener("change", (e) => {
-        premium = Number(e.target.value);
-        renderTable();
-        console.log({ Premium: premium });
-    });
-    const fees_elm = document.getElementById("fees");
-    fees_elm.addEventListener("change", (e) => {
-        fees = Number(e.target.value);
-        renderTable();
-        console.log({ Fees: fees });
-    });
-    const start_level_elm = document.getElementById("start_level");
-    start_level_elm.addEventListener("change", (e) => {
-        start_level = Number(e.target.value);
-        renderTable();
-        console.log({ Start_Level: start_level });
-    });
+            const def_profit = 200;
+            const def_risk = 300;
+            const contracts_row = Array.from(document.getElementsByClassName('contracts'));
+            const profits_row = Array.from(document.getElementsByClassName('profits'));
+            const risks_row = Array.from(document.getElementsByClassName('risks'));
+            const total_risk = document.getElementById('total_risk');
 
-    const def_profit = 200;
-    const def_risk = 300;
-    const contracts_row = Array.from(document.getElementsByClassName('contracts'));
-    const profits_row = Array.from(document.getElementsByClassName('profits'));
-    const risks_row = Array.from(document.getElementsByClassName('risks'));
-    const total_risk = document.getElementById('total_risk');
+            let capital = Number(capital_elm.value);
+            let premium = Number(premium_elm.value);
+            let fees = Number(fees_elm.value); // ToS is usually $4.88/contract
+            let start_level = Number(start_level_elm.value);
+            let level_offset = start_level - 1;
+            let actual_profit = (premium * 100) - fees;
+            let actual_risk = def_risk + (def_profit - (premium * 100)) + fees;
+            let total_risk_qty = Math.floor(capital / actual_risk);
 
-    let capital = Number(capital_elm.value);
-    let premium = Number(premium_elm.value);
-    let fees = Number(fees_elm.value); // ToS is usually $4.88/contract
-    let start_level = Number(start_level_elm.value);
-    let level_offset = start_level - 1;
-    let actual_profit = (premium * 100) - fees;
-    let actual_risk = def_risk + (def_profit - (premium * 100)) + fees;
-    let total_risk_qty = Math.floor(capital / actual_risk);
+            function generateQuantities(start, level) {
+                const ratios = [0.68, 0.22, 0.07, 0.02]; // Reduction ratios
+                const result = []; // Store reduced sequence
 
-    function generateQuantities(start, level) {
-        const ratios = [0.68, 0.22, 0.07, 0.02]; // Reduction ratios
-        const result = []; // Store reduced sequence
+                // Step 1: Apply ratios and calculate initial values
+                let currentSum = 0;
+                for (let ratio of ratios) {
+                    const value = Math.floor(start * ratio);
+                    result.push(value);
+                    currentSum += value;
+                }
 
-        // Step 1: Apply ratios and calculate initial values
-        let currentSum = 0;
-        for (let ratio of ratios) {
-            const value = Math.floor(start * ratio);
-            result.push(value);
-            currentSum += value;
-        }
+                // Step 2: Calculate leftover
+                let leftover = start - currentSum;
 
-        // Step 2: Calculate leftover
-        let leftover = start - currentSum;
-
-        // Step 3: Distribute leftover
-        let i = 0;
-        while (leftover > 0) {
-            // Check if adding leftover violates the one-third rule
-            if (
-                i > 0 && // Ensure we're not at the first index
-                result[i] + 1 > Math.floor(result[i - 1] / 3) // One-third rule check
-            ) {
-                // If it's the last leftover, find the highest valid index
-                if (leftover === 1) {
-                    for (let j = result.length - 1; j > i; j--) {
-                        if (j > 0 && result[j] + 1 <= Math.floor(result[j - 1] / 3)) {
-                            result[j] += 1; // Add leftover to the highest valid index
-                            leftover--;
-                            break;
+                // Step 3: Distribute leftover
+                let i = 0;
+                while (leftover > 0) {
+                    // Check if adding leftover violates the one-third rule
+                    if (
+                        i > 0 && // Ensure we're not at the first index
+                        result[i] + 1 > Math.floor(result[i - 1] / 3) // One-third rule check
+                    ) {
+                        // If it's the last leftover, find the highest valid index
+                        if (leftover === 1) {
+                            for (let j = result.length - 1; j > i; j--) {
+                                if (j > 0 && result[j] + 1 <= Math.floor(result[j - 1] / 3)) {
+                                    result[j] += 1; // Add leftover to the highest valid index
+                                    leftover--;
+                                    break;
+                                }
+                            }
                         }
+                        i++;
+                        continue; // Skip to the next index
+                    }
+
+                    result[i % result.length] += 1; // Add leftover to the current index
+                    leftover--;
+                    i++;
+                }
+
+                return result;
+            }
+
+            function renderTable() {
+                capital = Number(capital_elm.value);
+                premium = Number(premium_elm.value);
+                fees = Number(fees_elm.value); // ToS is usually $4.88/contract
+                start_level = Number(start_level_elm.value);
+                actual_profit = (premium * 100) - fees;
+                actual_risk = def_risk + (def_profit - (premium * 100)) + fees;
+                level_offset = start_level - 1;
+                total_risk_qty = Math.floor(capital / actual_risk);
+                let contracts_array = generateQuantities(total_risk_qty, start_level);
+                contracts_array = contracts_array.reverse();
+
+                console.log({ ActualProfit: actual_profit, ActualRisk: actual_risk, TotalContractRisk: total_risk_qty });
+                console.log(contracts_array);
+
+                // Handles contracts row
+                for (let i = contracts_row.length - 1; i >= 0; i--) {
+                    contracts_row[i].innerHTML = contracts_array[i - level_offset];
+                }
+
+                // Handles profit and risk rows
+                for (let i = contracts_row.length - 1; i >= 0; i--) {
+
+                    if (i < level_offset) { // Omit Level 1 zeros
+                        contracts_row[i].innerHTML = '0';
+                        profits_row[i].innerHTML = '$0';
+                        risks_row[i].innerHTML = '$0';
+                    } else {
+                        // Get contract quantities 
+                        let contracts = Number(contracts_row[i].innerText);
+
+
+                        // Hanldes profit levels 
+                        let level_profits = actual_profit * contracts;
+                        level_profits = level_profits.toFixed(0);
+                        profits_row[i].innerHTML = `$${level_profits}`;
+
+                        // Handles risk levels
+                        let level_risks = actual_risk * contracts;
+                        level_risks = level_risks.toFixed(0);
+                        risks_row[i].innerHTML = `$${level_risks}`;
+
                     }
                 }
-                i++;
-                continue; // Skip to the next index
+
+                // Handles Cumulative risk
+                let risk_total = 0;
+                for (let i = 0; i < risks_row.length; i++) {
+                    let amount = Number(risks_row[i].innerHTML.replace('$', ''));
+                    risk_total += amount;
+                }
+                total_risk.innerHTML = `$${risk_total}`;
             }
 
-            result[i % result.length] += 1; // Add leftover to the current index
-            leftover--;
-            i++;
-        }
-
-        return result;
-    }
-
-    function renderTable() {
-        capital = Number(capital_elm.value);
-        premium = Number(premium_elm.value);
-        fees = Number(fees_elm.value); // ToS is usually $4.88/contract
-        start_level = Number(start_level_elm.value);
-        actual_profit = (premium * 100) - fees;
-        actual_risk = def_risk + (def_profit - (premium * 100)) + fees;
-        level_offset = start_level - 1;
-        total_risk_qty = Math.floor(capital / actual_risk);
-        let contracts_array = generateQuantities(total_risk_qty, start_level);
-        contracts_array = contracts_array.reverse();
-
-        console.log({ ActualProfit: actual_profit, ActualRisk: actual_risk, TotalContractRisk: total_risk_qty });
-        console.log(contracts_array);
-
-        // Handles contracts row
-        for (let i = contracts_row.length - 1; i >= 0; i--) {
-            contracts_row[i].innerHTML = contracts_array[i - level_offset];
-        }
-
-        // Handles profit and risk rows
-        for (let i = contracts_row.length - 1; i >= 0; i--) {
-
-            if (i < level_offset) { // Omit Level 1 zeros
-                contracts_row[i].innerHTML = '0';
-                profits_row[i].innerHTML = '$0';
-                risks_row[i].innerHTML = '$0';
-            } else {
-                // Get contract quantities 
-                let contracts = Number(contracts_row[i].innerText);
-
-
-                // Hanldes profit levels 
-                let level_profits = actual_profit * contracts;
-                level_profits = level_profits.toFixed(0);
-                profits_row[i].innerHTML = `$${level_profits}`;
-
-                // Handles risk levels
-                let level_risks = actual_risk * contracts;
-                level_risks = level_risks.toFixed(0);
-                risks_row[i].innerHTML = `$${level_risks}`;
-                
-            }
-        }
-        
-        // Handles Cumulative risk
-        let risk_total = 0;
-        for (let i = 0; i < risks_row.length; i++) {
-            let amount = Number(risks_row[i].innerHTML.replace('$', ''));
-            risk_total += amount;
-        }        
-        total_risk.innerHTML = `$${risk_total}`;
-    }
-
-    renderTable();
-
-</script>
-
+            renderTable();
+        </script>
+    </body>
 </html>
