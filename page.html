@@ -126,7 +126,12 @@
             input[type="number"] {
             -moz-appearance: textfield; /* For Firefox */
             }
+            .net-profit-wrapper {
+                
+            }
+            .net-profit {
 
+            }
         </style>
     </head>
 
@@ -136,11 +141,11 @@
         <div class="input-row">
             <div class="input-item">
                 <h3>Capital</h3>
-                <input id="capital" type="number" value="15000">
+                <input id="capital" type="number" value="30000">
             </div>
             <div class="input-item">
                 <h3>IC Premium</h3>
-                <input id="premium" type="number" value="1.85">
+                <input id="premium" type="number" value="1.65">
             </div>
             <div class="input-item">
                 <h3>IC Fees</h3>
@@ -176,11 +181,31 @@
             </div>
             <div class="row">
                 <h4 class="row-item table-label">Level Exit Profit</h4>
-                <div class="row-item profits"></div>
-                <div class="row-item profits"></div>
-                <div class="row-item profits"></div>
-                <div class="row-item profits"></div>
-                <div class="row-item profits"></div>
+                <div class="row-item profits">
+                    <div class="net-profit-wrapper">
+                        Net profit = <p class="net-profit"></p>
+                    </div>
+                </div>
+                <div class="row-item profits">
+                    <div class="net-profit-wrapper">
+                        Net profit = <p class="net-profit"></p>
+                    </div>
+                </div>
+                <div class="row-item profits">
+                    <div class="net-profit-wrapper">
+                        Net profit = <p class="net-profit"></p>
+                    </div>
+                </div>
+                <div class="row-item profits">
+                    <div class="net-profit-wrapper">
+                        Net profit = <p class="net-profit"></p>
+                    </div>
+                </div>
+                <div class="row-item profits">
+                    <div class="net-profit-wrapper">
+                        Net profit = <p class="net-profit"></p>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <h4 class="row-item table-label">Level Max Risk</h4>
@@ -297,6 +322,9 @@
                 let contracts_array = generateQuantities(total_risk_qty, start_level);
                 contracts_array = contracts_array.reverse();
 
+                // Net profit display
+                const net_profit_elms = Array.from(document.getElementsByClassName('net-profit'));
+
                 console.log({ ActualProfit: actual_profit, ActualRisk: actual_risk, TotalContractRisk: total_risk_qty });
                 console.log(contracts_array);
 
@@ -321,6 +349,10 @@
                         let level_profits = actual_profit * contracts;
                         level_profits = level_profits.toFixed(0);
                         profits_row[i].innerHTML = `$${level_profits}`;
+
+                        // if(i < level_offset + 1) {
+                        //     net_profit_elms[i].innerHTML = `$0`;
+                        // }
 
                         // Handles risk levels
                         let level_risks = actual_risk * contracts;
